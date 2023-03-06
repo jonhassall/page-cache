@@ -157,7 +157,7 @@ class Cache
 
         $this->files->put(
             $this->join([$path, $file]),
-            $response->getContent(),
+            gzencode($response->getContent()),
             true
         );
     }
