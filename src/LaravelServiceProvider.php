@@ -29,7 +29,7 @@ class LaravelServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/page-cache.php' => config_path('page-cache.php'),
+            __DIR__ . '/config/page-cache.php' => config_path('page-cache.php'),
         ]);
     }
 }
