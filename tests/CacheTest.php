@@ -40,6 +40,20 @@ class CacheTest extends TestCase
         m::close();
     }
 
+    /**
+     * Define environment setup.
+     *
+     * @param Illuminate\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $packageConfigFile = __DIR__.'/../src/config/config.php';
+        $config = app('files')->getRequire($packageConfigFile);
+        app('config')->set('page-cache', $config);
+    }
+
     public function testCachesGetRequestsWith200Response()
     {
         $this->assertCaches(

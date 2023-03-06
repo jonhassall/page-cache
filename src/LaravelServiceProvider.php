@@ -32,4 +32,9 @@ class LaravelServiceProvider extends ServiceProvider
             __DIR__ . '/config/page-cache.php' => config_path('page-cache.php'),
         ]);
     }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/config/page-cache.php', 'page-cache');
+    }
 }
