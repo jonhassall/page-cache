@@ -199,12 +199,6 @@ class Cache
     {
         $segments = explode('/', trim($request->getPathInfo(), '/'));
 
-        // //If querystring, directory/filename/querystring.extension
-        // if ($request->getQueryString()) {
-        //     //Use MD5 as the maximum length of a GET parameter can be well in excess of max filename length
-        //     $segments[] = md5($request->getQueryString());
-        // }
-        
         $filename = $this->aliasFilename(array_pop($segments));
         $extension = $this->guessFileExtension($response);
 
