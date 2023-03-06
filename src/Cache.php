@@ -273,8 +273,12 @@ class Cache
      */
     protected function shouldGZIP(Request $request)
     {
+        //If configured
         if (config('page-cache.gzip') === true) {
-            return true;
+            //If client can accept GZIP, and function available
+            if (in_array('gzip', $request->getEncodings()) && function_exists('gzencode')) {
+                return true;
+            }
         }
         return false;
     }
