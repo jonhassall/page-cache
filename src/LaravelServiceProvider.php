@@ -22,4 +22,14 @@ class LaravelServiceProvider extends ServiceProvider
             return $instance->setContainer($this->app);
         });
     }
+
+    /**
+     * Bootstrap any package services.
+     */
+    public function boot(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../config/page-cache.php' => config_path('page-cache.php'),
+        ]);
+    }
 }
