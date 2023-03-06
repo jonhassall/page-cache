@@ -5,7 +5,6 @@ namespace Silber\PageCache;
 use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Container\Container;
-use \Illuminate\Config\Repository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,18 +31,11 @@ class Cache
      * @var string|null
      */
     protected $cachePath = null;
-
-    /**
-     * Illuminate application instance.
-     *
-     * @var Illuminate\Foundation\Application
-     */
-    protected $app;
-
     /**
      * Constructor.
      *
      * @var \Illuminate\Filesystem\Filesystem  $files
+     * @var \Illuminate\Foundation\Application  $app
      */
     public function __construct(Filesystem $files)
     {
@@ -282,7 +274,7 @@ class Cache
     protected function shouldGZIP(Request $request)
     {
         //If configured
-        if ($this->app->config('page-cache.gzip') === true) {
+        if (config('page-cache.gzip') === true) {
             //If client can accept GZIP, and function available
             if (in_array('gzip', $request->getEncodings()) && function_exists('gzencode')) {
                 return true;
