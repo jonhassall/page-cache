@@ -157,7 +157,7 @@ class Cache
 
         $this->files->put(
             $this->join([$path, $file]),
-            config('page-cache.gzip') ? gzencode($response->getContent()) : $response->getContent(),
+            $this->shouldGZIP($request) ? gzencode($response->getContent()) : $response->getContent(),
             true
         );
     }
@@ -210,7 +210,8 @@ class Cache
 
         $file = "{$filename}.{$extension}";
 
-        if (config('page-cache.gzip')) {
+        //Optional GZIP compression
+        if ($this->shouldGZIP($request)) {
             $file .= ".gz";
         }
 
@@ -262,6 +263,20 @@ class Cache
         }
 
         return 'html';
+    }
+
+    /**
+     * Determines if GZIP compression should be used
+     *
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @return bool
+     */
+    protected function shouldGZIP(Request $request)
+    {
+        if (config('page-cache.gzip') === true) {
+            return true;
+        }
+        return false;
     }
 
 }
